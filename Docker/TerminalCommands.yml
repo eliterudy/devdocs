@@ -1,0 +1,45 @@
+# ? Why do we need docker-compose.yml file?
+# > For live-reload
+
+# ? Should we run docker build or docker-compose build?
+# > Docker Compose file is used to run the DockerFile while also setting additional values like ports, environment, volumes,etc. If you have docker-compose.yml, run docker-compose instead of DockerFile
+
+# ? If Live reload works when you edit code in Docker App -> Your Docker Image  -> Files -> usr/src/app/src/* but not via your code in VSCode,
+# > Add the following in tsconfig file
+# --------------tsconfig.ts-----------------
+#    ...
+#    "watchOptions": {
+#      "watchFile": "dynamicPriorityPolling",
+#      "watchDirectory": "dynamicPriorityPolling",
+#      "excludeDirectories": ["**/node_modules", "dist"]
+#    }
+#    ...
+# -------------------------------------------
+# > Re-run docker-compose
+
+# !====================
+# Create Docker Image
+# !====================
+#  -t stands for title, -f stands for filename, '.' signifies current path
+# * Syntax -> docker build -t <docker_image_name> -f <docker_file_name> <path_to_create_from>
+# ~ docker build -t nextjs-prod -f DockerFile.prod .
+
+# !====================
+# Run Docker Image
+# !====================
+# -p stand for port, <host_port>:<app_port> Eg: 3000:3000
+# host_port is machine's port. Postman will have to call to host_port
+# app_port is the port the app(server) insider the container is listening to
+# * Syntax-> docker run -p <host_port>:<app_port> <docker_image_name>
+# ~ docker run -p 3000:3000 nestjs-prod
+
+# !====================
+# Run Docker Compose
+# !====================
+# ~ docker-compose up --build
+# ~ docker-compose -f docker-compose.prod.yml up --build
+# ^ -f -> file
+# ^ --build -> create build
+# ^ -d -> run in background [detach mode]
+
+# TOKEN: art_YjY5N2FjZWMtZjZkYy00MmU2LWEwYTEtMDY5OWUxODQxYTE3

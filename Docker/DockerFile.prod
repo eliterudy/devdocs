@@ -1,0 +1,24 @@
+FROM node:21
+
+# Working Directory for where the app is to be placed in the DockerImage
+WORKDIR /usr/src/app  
+
+
+# Copy src of code  to current path(written above) of Docker's working directory 
+COPY . .
+
+RUN npm install
+
+RUN npm run build
+
+RUN rm -rf ./src
+
+# Image Path that needs to be used in Postman
+EXPOSE 3001
+
+
+#Runs npm run start:dev
+CMD ["npm", "run", "start:dev"]
+
+
+# art_YjY5N2FjZWMtZjZkYy00MmU2LWEwYTEtMDY5OWUxODQxYTE3

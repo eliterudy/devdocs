@@ -1,0 +1,27 @@
+services:
+  nestjs_api:
+    build: 
+      context: .
+      # DockerFile used is for dev. To use Docker file for prod, use DockerFile.prod <-- Filename
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    # Used to set Environment Variables for current execution
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+    # For Live Reload
+    volumes:
+      # /usr/src/app is WORKDIR path (from DockerFile) and then mapped ./src to the src in docker image at the WORKDIR path
+      - ./src:/usr/src/app/src
+  postgres_db:
+    image: postgres
+    restart: always
+    ports:
+      - "3307:3307"
+    environment:
+      POSTGRES_PASSWORD: exampleapp
+      POSTGRES_DB: <project_name> 
+      # Eg: project_name = research-synthesis
+      POSTGRES_USER: postgres
+  
